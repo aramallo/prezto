@@ -5,6 +5,19 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+source ~/.iterm2_shell_integration.`basename $SHELL`
+
+# Aliases
+alias otp17='. ~/otp/17.5-lcnt/activate'
+alias otp18='. ~/otp/18.1-lcnt/activate'
+alias otp19lc='. ~/otp/19.0-lcnt/activate'
+alias otp19='. ~/otp/19.3/activate'
+alias webserver='python3 -m http.server 9090'
+alias julia='/Applications/JuliaPro-0.5.0.4.app/Contents/Resources/julia/
+Contents/Resources/julia/bin/julia'
+alias python='/Users/aramallo/anaconda/bin/python3'
+
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -12,8 +25,41 @@ fi
 
 # Customize to your needs...
 
-. ~/otp/18.1-lcnt/activate
+export LANG=en_GB.UTF-8
 
-source zsh-snippets/snippets.plugin.zsh
+# KERL
+. ~/otp/19.3/activate
+
+#source zsh-snippets/snippets.plugin.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# FILE LIMIT FOR LSD
+ulimit -n 65536
+ulimit -u 2048
+
+# GRAPHVIZ
+export GRAPHVIZ_DOT="/usr/local/opt/graphviz/bin/dot"
+
+# JAVA
+export JAVA_HOME="$(/usr/libexec/java_home)"
+
+# CIRCOS
+export PATH=$PATH:/Applications/circos/circos-0.62-1/bin
+
+# Inkscape command line tools
+alias inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+
+# PLANTUML
+export PLANTUML_HOME="/usr/local/Cellar/plantuml/8046/plantuml.8046.jar"
+export PLANTUML_JAR=$PLANTUML_HOME
+
+# VAGRANT
+export VAGRANT_DEFAULT_PROVIDER=parallels
+
+# EPO - ERLANG GETTEXT
+export PATH=$PATH:~/bin/epo/
+
+
+# PYTHON Anaconda3 4.3.0
+export PATH=$PATH:/Users/aramallo/anaconda/bin

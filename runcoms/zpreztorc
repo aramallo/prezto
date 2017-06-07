@@ -35,6 +35,7 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git' \
   'osx' \
+  'ssh' \
   'homebrew' \
   'history' \
   'python'
@@ -168,3 +169,6 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+
+
+

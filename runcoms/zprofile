@@ -5,6 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+
 #
 # Browser
 #
@@ -44,6 +45,10 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  ~/bin
+  /Library/TeX/texbin
+  /Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/
+  /usr/local/texlive/2015/bin/x86_64-darwin/bin
   $path
 )
 

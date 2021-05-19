@@ -1,65 +1,64 @@
-Pacman
-======
+# Pacman
 
 Provides aliases and functions for the [Pacman][1] package manager and
 frontends.
 
-Settings
---------
+## Settings
 
-To enable a Pacman frontend, for example, [Yaourt][2], add the following line to
-*zpreztorc*:
+It is possible to use a Pacman frontend with the pacman aliases provided by this
+package as long as that frontend supports the same command line options (The
+[AUR Helpers][2] page has a good comparison which lists if the command line
+options are pacman compatible).
 
-    zstyle ':prezto:module:pacman' frontend 'yaourt'
+Please note that installing packages with an AUR Helper is not officially
+supported by Archlinux. It is currently recommended to manually build AUR
+packages using the [provided instructions][3]. The [aurutils][4] project has a
+set of small utilities to make this easier.
 
-If you have enabled color globally in *zpreztorc*, you may disable it for certain
-commands.
+To enable a Pacman frontend, add the following line to *~/.zpreztorc*,
+substituting *pacman_frontend* with the name of the frontend:
 
-To disable `yaourt` highlighting, add the following line to *zpreztorc*:
+```sh
+zstyle ':prezto:module:pacman' frontend 'pacman_frontend'
+```
 
-    zstyle ':prezto:module:pacman:yaourt' color 'no'
-
-Aliases
--------
+## Aliases
 
 ### Pacman
 
-  - `pac` is short for `pacman`.
-  - `paci` installs packages from repositories.
-  - `pacI` installs packages from files.
-  - `pacx` removes packages and unneeded dependencies.
-  - `pacX` removes packages, their configuration, and unneeded dependencies.
-  - `pacq` displays information about a package from the repositories.
-  - `pacQ` displays information about a package from the local database.
-  - `pacs` searches for packages in the repositories.
-  - `pacS` searches for packages in the local database.
-  - `pacu` synchronizes the local package and Arch Build System (requires `abs`)
-    databases against the repositories.
-  - `pacU` synchronizes the local package database against the repositories then
-    upgrades outdated packages.
-  - `pacman-list-orphans` lists orphan packages.
-  - `pacman-remove-orphans` removes orphan packages.
+- `pac` is short for `pacman`.
+- `paci` installs packages from repositories.
+- `pacI` installs packages from files.
+- `pacx` removes packages and unneeded dependencies.
+- `pacX` removes packages, their configuration, and unneeded dependencies.
+- `pacq` displays information about a package from the repositories.
+- `pacQ` displays information about a package from the local database.
+- `pacs` searches for packages in the repositories.
+- `pacS` searches for packages in the local database.
+- `pacu` synchronizes the local package and Arch Build System (requires `abs`)
+  databases against the repositories.
+- `pacU` synchronizes the local package database against the repositories then
+  upgrades outdated packages.
+- `pacman-list-orphans` lists orphan packages.
+- `pacman-remove-orphans` removes orphan packages.
 
 ### Frontends
 
-#### Yaourt
+## Functions
 
-  - `pacc` manages *.pac\** files.
+- `aurget` clone an aur package.
+- `pacman-list-explicit` lists explicitly installed pacman packages.
+- `pacman-list-disowned` lists pacman disowned files.
 
-Functions
----------
+## Authors
 
-  - `pacman-list-explicit` lists explicitly installed pacman packages.
-  - `pacman-list-disowned` lists pacman disowned files.
+*The authors of this module should be contacted via the [issue tracker][5].*
 
-Authors
--------
+- [Benjamin Boudreau](https://github.com/dreur)
+- [Sorin Ionescu](https://github.com/sorin-ionescu)
 
-*The authors of this module should be contacted via the [issue tracker][3].*
-
-  - [Benjamin Boudreau](https://github.com/dreur)
-  - [Sorin Ionescu](https://github.com/sorin-ionescu)
-
-[1]: http://www.archlinux.org/pacman/
-[2]: http://archlinux.fr/yaourt-en
-[3]: https://github.com/sorin-ionescu/prezto/issues
+[1]: https://www.archlinux.org/pacman/
+[2]: https://wiki.archlinux.org/title/AUR_helpers#Comparison_tables
+[3]: https://wiki.archlinux.org/title/Arch_User_Repository#Installing_and_upgrading_packages
+[4]: https://github.com/AladW/aurutils
+[5]: https://github.com/sorin-ionescu/prezto/issues

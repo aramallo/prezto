@@ -12,7 +12,7 @@ function is-autoloadable {
 
 # Checks if a name is a command, function, or alias.
 function is-callable {
-  (( $+commands[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] ))
+  (( $+commands[$1] || $+functions[$1] || $+aliases[$1] || $+builtins[$1] ))
 }
 
 # Checks a boolean variable for "true".
@@ -28,4 +28,29 @@ function coalesce {
     return 0
   done
   return 1
+}
+
+# Checks if running on macOS Darwin.
+function is-darwin {
+  [[ "$OSTYPE" == darwin* ]]
+}
+
+# Checks if running on Linux.
+function is-linux {
+  [[ "$OSTYPE" == linux* ]]
+}
+
+# Checks if running on BSD.
+function is-bsd {
+  [[ "$OSTYPE" == *bsd* ]]
+}
+
+# Checks if running on Cygwin (Windows).
+function is-cygwin {
+  [[ "$OSTYPE" == cygwin* ]]
+}
+
+# Checks if running on termux (Android).
+function is-termux {
+  [[ "$OSTYPE" == linux-android ]]
 }

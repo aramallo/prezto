@@ -5,17 +5,34 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-source ~/.iterm2_shell_integration.`basename $SHELL`
+# Util funs
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+zmodload zsh/zprof
+
 
 # Aliases
-alias otp17='. ~/otp/17.5-lcnt/activate'
-alias otp18='. ~/otp/18.1-lcnt/activate'
-alias otp19lc='. ~/otp/19.0-lcnt/activate'
-alias otp19='. ~/otp/19.3/activate'
 alias webserver='python3 -m http.server 9090'
-alias julia='/Applications/JuliaPro-0.5.0.4.app/Contents/Resources/julia/
-Contents/Resources/julia/bin/julia'
-alias python='/Users/aramallo/anaconda/bin/python3'
+
+alias julia='/Applications/Julia-1.5.app/Contents/Resources/julia/bin/julia'
+
+#alias python='/usr/local/opt/python@3.8/bin/python3'
+#alias pip='/usr/local/opt/python@3.8/bin/pip3'
+
+alias r3='rebar3'
+alias r3c='rebar3 compile'
+alias r3s='rebar3 shell'
+alias r3a='rebar3 auto'
+alias r3d='rebar3 dialyzer'
+alias r3r='rebar3 as dev run'
+
+
+# Directory aliases
+alias bondy='/Volumes/Work/Leapsight/bondy'
 
 
 # Source Prezto.
@@ -23,26 +40,30 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+
 # Customize to your needs...
 
 export LANG=en_GB.UTF-8
 
-# KERL
-. ~/otp/19.3/activate
+# sets variables in iterm
+iterm2_print_user_vars() {
+  iterm2_set_user_var erlVersion $PRIV_OTP_VERSION
+}
 
-#source zsh-snippets/snippets.plugin.zsh
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source ~/.iterm2_shell_integration.zsh
 
-# FILE LIMIT FOR LSD
-ulimit -n 65536
+# FILE LIMIT FOR LSD, BONDY
+ulimit -n 200000
 ulimit -u 2048
 
 # GRAPHVIZ
 export GRAPHVIZ_DOT="/usr/local/opt/graphviz/bin/dot"
 
 # JAVA
-export JAVA_HOME="$(/usr/libexec/java_home)"
+# export JAVA_HOME="$(/usr/libexec/java_home)"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
 
 # CIRCOS
 export PATH=$PATH:/Applications/circos/circos-0.62-1/bin
@@ -54,12 +75,59 @@ alias inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
 export PLANTUML_HOME="/usr/local/Cellar/plantuml/8046/plantuml.8046.jar"
 export PLANTUML_JAR=$PLANTUML_HOME
 
-# VAGRANT
-export VAGRANT_DEFAULT_PROVIDER=parallels
+#GO
+export GOPATH="/Volumes/Work/Leapsight/go"
+export GOROOT="/usr/local/opt/go/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
-# EPO - ERLANG GETTEXT
-export PATH=$PATH:~/bin/epo/
+
+# EMACS
+export PATH="/Applications/Emacs.app/Contents/MacOS:$PATH"
 
 
-# PYTHON Anaconda3 4.3.0
-export PATH=$PATH:/Users/aramallo/anaconda/bin
+
+# ==============================================================================
+# ERLANG
+# ==============================================================================
+
+# REBAR3
+export PATH=/Users/aramallo/.cache/rebar3/bin:$PATH
+export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
+
+# DEFAULT OTP VERSION
+. ~/otp/23.3.1/activate
+export ERL_AFLAGS="+pc unicode -kernel shell_history enabled"
+
+# OVERRIDE PROMPT FORMAT
+export KERL_ENABLE_PROMPT=0
+export PROMPT='%F{yellow}%(2~|.../%1~|%~)❯ %f'
+#export PROMPT='%F{yellow}.../%1~❯ %f'
+#export PROMPT='%(!.%F{red}.%F{cyan})%n%f@%F{yellow}%m%f%(!.%F{red}.)❯ '
+
+# SHELL HISTORY
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# FUNCTIONS
+
+function otp() {
+    case $1 in
+    17)
+    version="17.5-lcnt";;
+    18)
+    version="18.1-lcnt";;
+    20)
+      version="20.3";;
+    21)
+      version="21.3";;
+    22)
+      version="22.2";;
+    23)
+      version="23.3.1";;
+    esac
+    . ~/otp/$version/activate
+    export PROMPT='%F{yellow}%(2~|.../%1~|%~)❯ %f'
+}
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc

@@ -42,7 +42,7 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'osx' \
   'ssh' \
-  'homebrew'
+  'homebrew'\
   'history-substring-search' \
   'prompt'
 
